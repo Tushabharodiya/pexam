@@ -8,8 +8,8 @@
 </head>
 
 <style>
-    .modal{
-       padding: 30px;
+    .modal {
+        padding: 30px;
         position: fixed;
         top: 20%;
         left: 37%;
@@ -17,11 +17,12 @@
         box-shadow: 0px 3px 15px gray;
         display: none;
     }
-    table{
+
+    table {
         margin-top: 30px;
     }
-    
 </style>
+
 <body>
 
     <a href="product.html"><button>product page</button></a>
@@ -118,36 +119,36 @@
         //upadate product   
 
         let view = (ind) => {
-            let modal=document.getElementById("modal")
-            modal.style.display="block"
-            let res=product[ind]
+            let modal = document.getElementById("modal")
+            modal.style.display = "block"
+            let res = product[ind]
 
-            let data={
-                name: document.getElementById("namee").value=res.name,
-                price: document.getElementById("pricee").value=res.price,
-                discount: document.getElementById("discoun").value=res.discount,
-                sell: document.getElementById("sel").value=res.sell,
-                dis: document.getElementById("disc").value=res.dis,
-                index:document.getElementById("index").value=ind,
-            }
+            document.getElementById("namee").value = res.name;
+            document.getElementById("pricee").value = res.price;
+            document.getElementById("discoun").value = res.discount;
+            document.getElementById("sel").value = res.sell;
+            document.getElementById("disc").value = res.dis;
+            document.getElementById("index").value = ind;
+
         }
 
         // table update
-        let save=()=>{
-            let data={
+        let save = () => {
+            let index = document.getElementById("index").value;
+            let data = {
                 name: document.getElementById("namee").value,
                 price: document.getElementById("pricee").value,
                 discount: document.getElementById("discoun").value,
                 sell: document.getElementById("sel").value,
                 dis: document.getElementById("disc").value,
-                index:document.getElementById("index").value,
+
             }
             console.log(data);
 
-            product.splice(index,1,data)
+            product.splice(index, 1, data)
             console.log(product);
 
-            localStorage.setItem("product",JSON.stringify(product))
+            localStorage.setItem("product", JSON.stringify(product))
             location.reload()
         }
 
