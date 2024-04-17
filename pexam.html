@@ -1,11 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+
+<style>
+    .modal{
+       padding: 30px;
+        position: fixed;
+        top: 20%;
+        left: 37%;
+        background-color: white;
+        box-shadow: 0px 3px 15px gray;
+        display: none;
+    }
+    table{
+        margin-top: 30px;
+    }
     
+</style>
+<body>
+
+    <a href="product.html"><button>product page</button></a>
+
+    <br>
+    <label>name :<input type="text" id="name"></label><br><br>
+    <label>price :<input type="number" id="price"></label><br><br>
+    <label>discount :<input type="number" id="discount"></label><br><br>
+    <label>sell :<input type="text" id="sell"></label><br><br>
+    <label>dis :<input type="text" id="dis"></label><br><br>
+    <button onclick="add()">add</button>
+
+
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>price</th>
+                <th>discount</th>
+                <th>sell</th>
+                <th>dis</th>
+                <th>button</th>
+                <th>button</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+
+
+    <div class="modal" id="modal">
+        <label>name :<input type="text" id="namee"></label><br><br>
+        <label>price :<input type="number" id="pricee"></label><br><br>
+        <label>discount :<input type="number" id="discoun"></label><br><br>
+        <label>sell :<input type="text" id="sel"></label><br><br>
+        <label>dis :<input type="text" id="disc"></label><br><br>
+        <input type="hidden" name="" id="index">
+        <button onclick="save()">add</button>
+
+    </div>
+
+
+    <script>
+
+        let product = JSON.parse(localStorage.getItem("product")) || [];
+        // add item in localstorege
+        let add = () => {
+            let data = {
+                name: document.getElementById("name").value,
+                price: document.getElementById("price").value,
+                discount: document.getElementById("discount").value,
+                sell: document.getElementById("sell").value,
+                dis: document.getElementById("dis").value,
+            }
+            console.log(data);
+            product.push(data)
+            console.log(product);
+
+            localStorage.setItem("product", JSON.stringify(product))
+            location.reload()
+        }
+
+        //push in table
+        let loaddata = () => {
+            let tbody = document.getElementById("tbody")
+            product.map((val, ind) => {
+                let tr = document.createElement("tr")
+                tr.innerHTML = `<td>${val.name}</td>
+                            <td>${val.price}</td>
+                            <td>${val.discount}</td>
+                            <td>${val.sell}</td>
+                            <td>${val.dis}</td>
+                            <td><button onclick="deletee(${ind})">delete</button></td>
+                            <td><button onclick="view(${ind})">update</button></td>`
+                tbody.appendChild(tr)
+            })
+        }
+        loaddata()
+
+        //delete product
+
+        let deletee = (ind) => {
+            let pro = product[ind]
+            console.log(pro);
+
+            let res = product.filter((val) => val.name != pro.name)
+            console.log(res);
+
+            localStorage.setItem("product", JSON.stringify(res))
+            location.reload()
+        }
+
+        //upadate product   
+
+        let view = (ind) => {
+            let modal=document.getElementById("modal")
+            modal.style.display="block"
+            let res=product[ind]
+
+            let data={
+                name: document.getElementById("namee").value=res.name,
+                price: document.getElementById("pricee").value=res.price,
+                discount: document.getElementById("discoun").value=res.discount,
+                sell: document.getElementById("sel").value=res.sell,
+                dis: document.getElementById("disc").value=res.dis,
+                index:document.getElementById("index").value=ind,
+            }
+        }
+
+        // table update
+        let save=()=>{
+            let data={
+                name: document.getElementById("namee").value,
+                price: document.getElementById("pricee").value,
+                discount: document.getElementById("discoun").value,
+                sell: document.getElementById("sel").value,
+                dis: document.getElementById("disc").value,
+                index:document.getElementById("index").value,
+            }
+            console.log(data);
+
+            product.splice(index,1,data)
+            console.log(product);
+
+            localStorage.setItem("product",JSON.stringify(product))
+            location.reload()
+        }
+
+
+    </script>
 </body>
+
 </html>
